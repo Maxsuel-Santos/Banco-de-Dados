@@ -456,8 +456,6 @@ where sexo = 'F' and altura > '1.90';
 
 -- AULA 13
 
-select nome from gafanhotos
-where sexo != 'F' and peso < '50';
 
 
 
