@@ -230,7 +230,7 @@ CREATE TABLE Gafanhotos (
 LOCK TABLES Gafanhotos WRITE; --  Comando LOCK TABLE é utilizado para bloquear uma ou mais tabelas, partições de tabela, ou subpartições de tabela no modo especificado. O bloqueio manual substitui o bloqueio automático e permite ou nega acesso à tabela ou visão pelos outros usuários pela duração de sua operação.
 
 INSERT INTO Gafanhotos VALUES 
-(1,'Daniel Morais','Auxiliar Administrat','1984-01-02','M',78.50,1.83,'Brasil'),
+(1,'    Daniel Morais      ','Auxiliar Administrat','1984-01-02','M',78.50,1.83,'Brasil'),
 (2,'Talita Nascimento','Farmacêutico','1999-12-30','F',55.20,1.65,'Portugal'),
 (3,'Emerson Gabriel','Programador','1920-12-30','M',50.20,1.65,'Moçambique'),
 (4,'Lucas Damasceno','Auxiliar Administrat','1930-11-02','M',63.20,1.75,'Irlanda'),
@@ -392,6 +392,7 @@ select carga from cursos order by carga;
 select distinct carga from cursos order by carga;
 
 select count(*) from cursos; -- Conta quantas ocorrências tem em cursos, ou seja, a quantidade de cursos (idCurso), que são 30 nesse caso
+select count(idCurso) from cursos; -- Conta quantas ocorrências tem em cursos, ou seja, a quantidade de cursos (idCurso), que são 30 nesse caso
 
 select count(*) from cursos where carga > 40; -- Conta quantos cursos tem com mais de 40 horas. Nesse caso são 6 cursos com mais de 40 horas de carga
 
@@ -453,6 +454,12 @@ where sexo = 'F' and nacionalidade != 'Brasil' and nascimento between '1990-01-0
 select count(altura) from gafanhotos
 where sexo = 'F' and altura > '1.90'; 
 
+select lower(nome) from gafanhotos;
+select upper(nome) from gafanhotos;
+select nome from gafanhotos;
+select ltrim(nome) from gafanhotos;
+select rtrim(nome) from gafanhotos;
+select length(nome) from gafanhotos;
 
 -- AULA 13
 
