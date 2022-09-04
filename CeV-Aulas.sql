@@ -1,6 +1,6 @@
 -- AULA 3
 
-/*
+
 
 -- drop schema Cadastro;
 
@@ -20,11 +20,11 @@ create table Pessoas(
     nacionalidade varchar(30) default 'Brasil' -- Valor padrão 'Brasil'
 ) default charset = utf8;
 
-*/
+
 
 -- AULA 4
 
-/*
+
 
 insert into Pessoas values
 (1, 'Maxsuel', '2004-10-26', 'M', '49.6', '1.66', 'Brasil'), -- o valor do id é opcional caso não seja not null
@@ -34,11 +34,11 @@ insert into Pessoas values
 
 select * from Pessoas; 
 
-*/
+
 
 -- AULA 5
 
-/*
+
 
 describe Pessoas; -- Descreve a tabela pessoas / describe/desc
 
@@ -60,11 +60,11 @@ alter table Pessoas change column profissao prof varchar(20) not null; -- Renome
 
 alter table Pessoas rename to Gafanhotos; -- Renomeia uma tabela, usando o rename to
 
-*/
+
 
 -- EX AULA 5
 
-/*
+
 
 create table if not exists Cursos(  -- 'if not exists' -> só cria a tabela se ela não existir, assim não corre riscos de sobrescrever
 	nome varchar(30) not null unique, -- unique é único, ou seja, o nome é único e não existem dois nomes iguais na tabela
@@ -84,11 +84,11 @@ select * from Cursos;
 
 -- drop table Cursos; -- Cuidado ao usar drop, pois se apagar já era, some tudo
 
-*/
+
 
 -- AULA 7
 
-/*
+
 
 use cadastro;
 
@@ -143,7 +143,7 @@ select * from cursos;
 truncate table cursos; -- apaga todos os dados da tabela.
 -- truncate cursos;
 
-*/
+
 
 -- AULA 8
 
