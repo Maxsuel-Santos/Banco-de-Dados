@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS Curso;
 
 CREATE TABLE Curso(
 	idCurso INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    curso VARCHAR(45)
+    curso VARCHAR(45) NOT NULL UNIQUE
 ) DEFAULT CHARSET = utf8;
 
 # DESCRIBE Curso;
@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS Turma;
 
 CREATE TABLE Turma(
 	idTurma INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    turma VARCHAR(45)
+    turma VARCHAR(45) NOT NULL UNIQUE
 ) DEFAULT CHARSET = utf8;
 
 # DESCRIBE Turma;
@@ -61,7 +61,7 @@ DROP TABLE IF EXISTS Departamento;
 
 CREATE TABLE Departamento(
 	idDepartamento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45)
+    nome VARCHAR(45) NOT NULL UNIQUE
 ) DEFAULT CHARSET = utf8;
 
 # DESCRIBE Departamento;
@@ -74,7 +74,7 @@ DROP TABLE IF EXISTS Disciplina;
 
 CREATE TABLE Disciplina(
 	idDisciplina INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    disciplina VARCHAR(45)
+    disciplina VARCHAR(45) NOT NULL UNIQUE
 ) DEFAULT CHARSET = utf8;
 
 # DESCRIBE Disciplina;
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS Instituicao;
 
 CREATE TABLE Instituicao(
 	idInstituicao INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    instituicao VARCHAR(45) NOT NULL
+    instituicao VARCHAR(45) NOT NULL UNIQUE
 ) DEFAULT CHARSET = utf8;
 
 # DESCRIBE Instituicao;
@@ -126,8 +126,8 @@ DROP TABLE IF EXISTS Usuario;
 
 CREATE TABLE Usuario(
 	idUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45) NOT NULL UNIQUE,
-    cpf VARCHAR(11) NOT NULL,
+    nome VARCHAR(45) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
     dataNascimento DATE NOT NULL,
     escolaridade VARCHAR(45) NOT NULL,
     numeroUsuario VARCHAR(45) NOT NULL,
@@ -145,7 +145,7 @@ DROP TABLE IF EXISTS Estudante;
 
 CREATE TABLE Estudante(
 	idEstudante INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    numeroMatricula VARCHAR(15) NOT NULL,
+    numeroMatricula VARCHAR(15) NOT NULL UNIQUE,
     anoIngresso YEAR NOT NULL,
     Usuario_idUsuario INT NOT NULL,
     Curso_idCurso INT NOT NULL,
@@ -456,7 +456,8 @@ SELECT
     e.complemento AS 'Complemento'
 FROM Endereco e
 INNER JOIN Usuario u
-ON e.idEndereco = u.Endereco_idEndereco;
+ON e.idEndereco = u.Endereco_idEndereco
+ORDER BY u.nome ASC;
 
 -- ----------------------------------
 -- SELECT Curso, Estudante & Usuario
@@ -470,7 +471,8 @@ FROM Curso c
 INNER JOIN Estudante e
 ON e.Curso_idCurso = c.idCurso
 INNER JOIN Usuario u
-ON e.Usuario_idUsuario = u.idUsuario;
+ON e.Usuario_idUsuario = u.idUsuario
+ORDER BY c.curso ASC;
 
 -- ------------------------------------------------
 -- SELECT Turma, Professor, Departamento & Usuario
@@ -490,4 +492,69 @@ ON p.Departamento_idDepartamento = de.idDepartamento
 INNER JOIN Disciplina di
 ON p.Disciplina_idDisciplina = di.idDisciplina
 INNER JOIN Usuario u
-ON p.Usuario_idUsuario = u.idUsuario;
+ON p.Usuario_idUsuario = u.idUsuario
+ORDER BY t.turma ASC;
+
+-- -------------------------------
+-- SELECT Exemplar, Obra & Tipo
+-- -------------------------------
+
+SELECT
+	o.nome AS 'Obra',
+	e.exemplar AS 'Exemplar',
+    t.nome AS 'Tipo'
+FROM Exemplar e
+INNER JOIN Obra o
+ON o.Exemplar_idExemplar = e.idExemplar
+INNER JOIN Tipo t
+ON o.Tipo_idTipo = t.idTipo
+ORDER BY o.nome ASC;
+
+-- -----------------------------------
+-- SELECT Obra, Compra & Instituicao
+-- -----------------------------------
+
+SELECT
+	o.nome AS 'Obra',
+    i.instituicao AS 'Instituição'
+FROM Obra o
+INNER JOIN Compra c
+ON c.Obra_idObra = o.idObra
+INNER JOIN Instituicao i
+ON c.Instituicao_idInstituicao = i.idInstituicao
+ORDER BY o.nome ASC;
+
+
+-- ---------------------------------
+-- SELECT Obra, Consulta & Usuario
+-- ---------------------------------
+
+SELECT
+	c.numeroConsulta AS 'Número de Consultas',
+    o.nome AS 'Obra',
+    u.nome AS 'Usuário'
+FROM Obra o
+INNER JOIN Consulta c
+ON c.Obra_idObra = o.idObra
+INNER JOIN Usuario u
+ON c.Usuario_idUsuario = idUsuario
+ORDER BY c.numeroConsulta ASC;
+
+
+-- -----------------------------------
+-- SELECT Obra, Emprestimo & Usuario
+-- -----------------------------------
+
+SELECT
+	e.dataEmprestimo AS 'Data de Empréstimo',
+    e.dataDevolucao AS 'Data de Devolução',
+    e.numeroEmprestimo AS 'Número de Empréstimos',
+    e.vencimento AS 'Vencimento',
+    o.nome AS 'Obra',
+    u.nome AS 'Usuário'
+FROM Obra o
+INNER JOIN Emprestimo e
+ON e.Obra_idObra = o.idObra
+INNER JOIN Usuario u
+ON e.Usuario_idUsuario = idUsuario
+ORDER BY e.dataEmprestimo ASC;
