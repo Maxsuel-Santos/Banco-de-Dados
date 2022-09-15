@@ -143,3 +143,4 @@ from Editora ed
 inner join Endereco en
 on ed.idEditora = en.Editora_idEditora
 order by ed.nomeFantasia;
+
