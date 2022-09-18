@@ -463,6 +463,80 @@ select length(nome) from gafanhotos;
 
 -- AULA 13
 
+SELECT Carga FROM Cursos
+GROUP BY Carga; -- Ao invés de distinguir - DISTINCT - foi agrupado, tendo o mesmo resultado visual, porém junta todos de mesmo valor
+
+SELECT Carga, COUNT(Nome) AS 'Ocorrências' FROM Cursos
+GROUP BY Carga; -- Agrupou e contou quantos registros tem do mesmo valor por grupo, Só dá pra fazer isso com o GRUP BY
+
+SELECT DISTINCT Carga FROM Cursos; 
+
+SELECT carga AS 'Carga Horária', COUNT(*) AS 'Ocorrências de Cursos' 
+FROM Cursos 
+WHERE totaulas = 30 
+GROUP BY carga;
+
+SELECT ano AS 'Ano', COUNT(*) FROM Cursos
+GROUP BY ano
+HAVING COUNT(ano) >= 5
+ORDER BY ano; -- Agrupou e mostrou apenas quem tem uma quantidade de ocorrências de Cursos >= a 5 (HAVING). No HAVING, você só pode trabalhar com o campo que você agrupou
+
+SELECT ano AS 'Ano', COUNT(*) FROM Cursos
+GROUP BY ano
+HAVING ano > 2013
+ORDER BY ano;
+
+SELECT ano AS 'Ano', COUNT(*) AS 'Ocorrências' 
+FROM Cursos
+WHERE totaulas > 25
+GROUP BY ano
+HAVING ano > 2013
+ORDER BY ano;
+
+SELECT AVG(carga) FROM Cursos; 
+
+# (ABAIXO) Selecionou (SELECT); Filtrou (WHERE); Agrupou (GROUP BY) e Impôs uma condição de exibição proveniente do agrupamento (HAVING)
+SELECT 
+    carga AS 'Carga Horária', COUNT(*) AS 'Ocorrências'
+FROM
+    Cursos
+WHERE
+    ano > 2015
+GROUP BY carga
+HAVING carga > (SELECT AVG(carga) FROM Cursos); -- Seleciona carga de Cursos onde o ano é maior de 2015 (2016 acima), agrupa por carga e mostra todos os cursos que tem a carga maior do que a média total. Nesse caso a média é 36.33..., então os crusos maiores do que esse valor serão mostrados. Select dentro de outro Select ;-;
+
+-- Exercícios AULA 13
+
+-- 1
+SELECT profissao AS 'Profissão', COUNT(*) AS 'Ocorrências' FROM Gafanhotos
+GROUP BY profissao
+ORDER BY COUNT(*) DESC;
+
+-- 2
+SELECT sexo AS 'Sexo', COUNT(*) AS 'Ocorrências' FROM Gafanhotos
+WHERE nascimento > '2004-12-31'
+GROUP BY sexo;
+
+-- 3
+SELECT nacionalidade AS 'Nacionalidade', COUNT(*) AS 'Ocorrências' FROM Gafanhotos
+WHERE nacionalidade != 'Brasil'
+GROUP BY nacionalidade
+HAVING COUNT(nacionalidade) > 3
+ORDER BY nacionalidade ASC;
+
+-- 4
+SELECT AVG(altura) FROM Gafanhotos; -- AVG = 1.66
+
+SELECT altura AS 'Altura', COUNT(*) AS 'Ocorrências' FROM Gafanhotos
+WHERE peso > 100
+GROUP BY altura
+HAVING altura > (SELECT AVG(altura) FROM Gafanhotos)
+ORDER BY altura DESC;
+
+-- AULA 14
+
+
+
 
 
 
