@@ -6,7 +6,7 @@
 
 create schema Cadastro
 default character set utf8
-default collate utf8_general_ci; -- UTF-8
+default collate utf8_general_ci; 					-- UTF-8
 
 use Cadastro;
 
@@ -20,7 +20,11 @@ create table Pessoas(
     nacionalidade varchar(30) default 'Brasil' -- Valor padrão 'Brasil'
 ) default charset = utf8;
 
-
+CREATE TABLE Pessoa(
+	idPessoas INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(30) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE
+) DEFAULT CHARSET = utf8;
 
 -- AULA 4
 
@@ -40,25 +44,34 @@ select * from Pessoas;
 
 
 
-describe Pessoas; -- Descreve a tabela pessoas / describe/desc
+#describe Pessoas; -- Descreve a tabela pessoas / describe/desc
 
-alter table Pessoas add column profissao varchar(10); -- alter table 'nomedatabela' add column 'nome da/do coluna/atributo' 'tipo primitivo' -> Adiciona um atributo a uma tabela já criada, porém esse atributo será o último na ordem
+ALTER TABLE Pessoas 
+ADD COLUMN profissao varchar(10);                                                          -- alter table 'nomedatabela' add column 'nome da/do coluna/atributo' 'tipo primitivo' -> Adiciona um atributo a uma tabela já criada, porém esse atributo será o último na ordem
 
-select * from Pessoas;
+#select * from Pessoas;
 
-alter table Pessoas drop column profissao; -- Apaga/Elimina um(a) coluna/atributo de uma tabela
+ALTER TABLE Pessoas 
+DROP COLUMN profissao;                                                                                                                     -- Apaga/Elimina um(a) coluna/atributo de uma tabela
 
-alter table Pessoas add column profissao varchar(10) after nome; -- Adiciona uma coluna depois de uma colunaespecífica, usadno o after 'nome da coluna'
+ALTER TABLE Pessoas 
+ADD COLUMN profissao VARCHAR(10) 
+AFTER nome;                                                                                                                     -- Adiciona uma coluna depois de uma colunaespecífica, usadno o after 'nome da coluna'
 
-alter table Pessoas add column codigo int first; -- Adiciona a coluna como primeira de todas as colunas, usando o first
+ALTER TABLE Pessoas 
+ADD COLUMN codigo INT FIRST;                                                                                                                     -- Adiciona a coluna como primeira de todas as colunas, usando o first
 
-alter table Pessoas modify column profissao varchar(20); -- Modificou o tamanho do varchar da coluna, usando o modify que modifica o tipo primitivo e as constrantes (not null, primary key e etc)
+ALTER TABLE Pessoas 
+MODIFY COLUMN profissao VARCHAR(20);                                                           -- Modificou o tamanho do varchar da coluna, usando o modify que modifica o tipo primitivo e as constrantes (not null, primary key e etc)
 
-alter table Pessoas modify column profissao varchar(20) not null default ''; -- Modificou o tamanho do varchar da coluna, usando o modify. Só que ela não pode ser nula e dá erro se colocar sem os dados, por isso colocou-se o default vazio como valor padrão
+ALTER TABLE Pessoas 
+MODIFY COLUMN profissao VARCHAR(20) NOT NULL DEFAULT '';                                                           -- Modificou o tamanho do varchar da coluna, usando o modify. Só que ela não pode ser nula e dá erro se colocar sem os dados, por isso colocou-se o default vazio como valor padrão
 
-alter table Pessoas change column profissao prof varchar(20) not null; -- Renomeou a coluna, usando o change + 'nome da coluna' + 'novo nome da coluna' + 'tipo primitivo' + o resto que se não colocado, será perdido, não será herdado
+ALTER TABLE Pessoas 
+CHANGE COLUMN profissao prof VARCHAR(20) NOT NULL;                                                           -- Renomeou a coluna, usando o change + 'nome da coluna' + 'novo nome da coluna' + 'tipo primitivo' + o resto que se não colocado, será perdido, não será herdado
 
-alter table Pessoas rename to Gafanhotos; -- Renomeia uma tabela, usando o rename to
+ALTER TABLE Pessoas 
+RENAME TO Gafanhotos;                                                                                                                     -- Renomeia uma tabela, usando o rename to
 
 
 
@@ -95,8 +108,7 @@ use cadastro;
 -- Linha(horizontal) => Registro/Tupla // Coluna(vertical) => Campo/Atributo
 -- alter table => manipula coluna
 -- update => manipula linha
-
-
+    
 insert into cursos values
 ('1', 'HTML4', 'Curso de HTML5', '40', '37', '2021'),
 ('2', 'Algoritmos', 'Lógica de programação', '20', '15', '2014'),
@@ -140,8 +152,9 @@ delete from cursos where idCurso = '10';
 
 select * from cursos;
 
-truncate table cursos; -- apaga todos os dados da tabela.
--- truncate cursos;
+TRUNCATE TABLE Curso; 				-- apaga todos os dados da tabela.
+
+TRUNCATE Curso;
 
 
 
@@ -161,9 +174,17 @@ Server > Data Export > “Marque o(s) banco(s) de dado(s) e as tabelas que você
 
 -- drop schema if exists sys; -- Apagando uma base de dados se ela existe.
 
+
+SHOW TABLES;
+
+
+SHOW TABLE STATUS;
+
+
 -- AULA 11
 
 DROP DATABASE IF EXISTS Cadastro;
+
 CREATE DATABASE IF NOT EXISTS Cadastro;
 USE Cadastro;
 
