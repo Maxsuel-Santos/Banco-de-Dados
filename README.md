@@ -53,7 +53,7 @@ Segue abaixo três lugares onde você pode estudar e aprofundar seus estudos em 
 
 ## 💡 Tecnologias Utilizadas
 
-![icon](https://github.com/Maxsuel-Santos/Maxsuel-Santos/blob/main/\_GitHub/img/sql-logo.svg)
+![icon](https://github.com/Maxsuel-Santos/Maxsuel-Santos/blob/main/\_GitHub/img/sql-icon.svg)
 
 ## 🏆 Referências
 
